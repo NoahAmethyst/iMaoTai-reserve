@@ -5,11 +5,16 @@ import os
 import random
 import re
 import time
+
+import grpc
+
 import config
 from encrypt import Encrypt
 import requests
 import hashlib
 import logging
+
+from pb import qqbot_pb2, qqbot_pb2_grpc
 
 AES_KEY = 'qbhajinldepmucsonaaaccgypwuvcjaa'
 AES_IV = '2018534749963515'
@@ -41,7 +46,6 @@ mt_version = get_mt_version()
 '''
 # 通过ios应用商店的api获取最新版本
 mt_version = json.loads(requests.get('https://itunes.apple.com/cn/lookup?id=1600482450').text)['results'][0]['version']
-
 
 header_context = f'''
 MT-Lat: 28.499562
@@ -250,6 +254,23 @@ def send_msg(title, content):
     r = requests.get(url, params={'token': config.PUSH_TOKEN,
                                   'title': title,
                                   'content': content})
+
+    if config.QQ_BOT_SVC is not None:
+        logging.info('已设置QQ推送，准备推送QQ消息')
+        if config.QQ_RECEIVER is None:
+            logging.warning('设置了QQBot Grpc 但未设置接收者')
+            return
+        try:
+            with grpc.insecure_channel(config.QQ_BOT_SVC) as channel:
+                stub = qqbot_pb2_grpc.QQBotServiceStub(channel)
+                _content = f'【i茅台预约脚本】\n\n{title}\n\n{content}'
+                group = False
+                if config.QQ_GROUP is not None:
+                    group = True
+                stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=config.QQ_RECEIVER, group=group))
+        except Exception as e:
+            logging.error(f'QQ推送失败：{e}')
+
     logging.info(f'通知推送结果：{r.status_code, r.text}')
 
 
