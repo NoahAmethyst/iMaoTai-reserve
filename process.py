@@ -267,7 +267,7 @@ def send_msg(title, content):
                 group = False
                 if config.QQ_GROUP is not None:
                     group = True
-                stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=config.QQ_RECEIVER, group=group))
+                stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=int(config.QQ_RECEIVER), group=group))
         except Exception as e:
             logging.error(f'QQ推送失败：{e}')
 
