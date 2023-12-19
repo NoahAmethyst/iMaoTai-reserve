@@ -263,11 +263,11 @@ def send_msg(title, content):
         try:
             with grpc.insecure_channel(config.QQ_BOT_SVC) as channel:
                 stub = qqbot_pb2_grpc.QQBotServiceStub(channel)
-                _content = f'【i茅台预约脚本】\n\n{title}\n\n{content}'
-                group = False
-                if config.QQ_GROUP is not None:
-                    group = True
-                stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=int(config.QQ_RECEIVER), group=group))
+                _content = f'【i茅台预约】\n\n{title}\n\n{content}'
+                _group = False
+                if config.QQ_GROUP is not None and len(config.QQ_GROUP) > 0:
+                    _group = True
+                stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=int(config.QQ_RECEIVER), group=_group))
         except Exception as e:
             logging.error(f'QQ推送失败：{e}')
 
