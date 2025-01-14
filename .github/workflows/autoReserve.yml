@@ -50,6 +50,9 @@ jobs:
 #          PUSHPLUS_KEY: ${{ secrets.PUSHPLUS_KEY }}
           SCKEY: ${{ secrets.SCKEY }}
           PRIVATE_AES_KEY: ${{ secrets.PRIVATE_AES_KEY }}
+          QQ_BOT_SVC: ${{ secrets.QQ_BOT_SVC }}
+          QQ_RECEIVER: ${{ secrets.QQ_RECEIVER }}
+          QQ_GROUP: ${{ secrets.QQ_GROUP }}
         run: |
           python main.py
 

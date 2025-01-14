@@ -271,6 +271,7 @@ def send_msg(title, content):
         except Exception as e:
             logging.error(f'QQ推送失败：{e}')
 
+
     logging.info(f'通知推送结果：{r.status_code, r.text}')
 
 
