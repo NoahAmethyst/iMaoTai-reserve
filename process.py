@@ -248,12 +248,12 @@ def act_params(shop_id: str, item_id: str):
 
 # 消息推送
 def send_msg(title, content):
-    if config.PUSH_TOKEN is None:
-        return
-    url = 'http://www.pushplus.plus/send'
-    r = requests.get(url, params={'token': config.PUSH_TOKEN,
-                                  'title': title,
-                                  'content': content})
+    # if config.PUSH_TOKEN is None:
+    #     return
+    # url = 'http://www.pushplus.plus/send'
+    # r = requests.get(url, params={'token': config.PUSH_TOKEN,
+    #                               'title': title,
+    #                               'content': content})
 
     if config.QQ_BOT_SVC is not None:
         logging.info('已设置QQ推送，准备推送QQ消息')
@@ -270,9 +270,10 @@ def send_msg(title, content):
                 stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=int(config.QQ_RECEIVER), group=_group))
         except Exception as e:
             logging.error(f'QQ推送失败：{e}')
+    else:
+        logging.warning("未设置QQ推送")
 
-
-    logging.info(f'通知推送结果：{r.status_code, r.text}')
+    logging.info(f'QQ推送结果：{r.status_code, r.text}')
 
 
 # 核心代码，执行预约
