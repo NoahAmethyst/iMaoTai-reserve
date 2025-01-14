@@ -284,10 +284,10 @@ def reservation(params: dict, mobile: str):
     #     send_msg('！！失败！！茅台预约', f'[{mobile}],登录token失效，需要重新登录')
     #     raise RuntimeError
     resp = json.loads(responses.text)
-    msg = f'预约:{mobile};code:{responses.status_code};server_code:{resp.__getattribute__("code")},server_message:{resp.__getattribute__("message")};'
+    msg = f'预约:{mobile};code:{responses.status_code};server_code:{resp.get("code")},server_message:{resp.get("message")};'
     logging.info(msg)
 
-    return_msg = {"appointment": mobile, "message": resp.__getattribute__("message")}
+    return_msg = {"appointment": mobile, "message": resp.get("message")}
 
     # 如果是成功，推送消息简化；失败消息则全量推送
     if responses.status_code == 200:
