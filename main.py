@@ -67,7 +67,7 @@ for section in configs.sections():
                 continue
             shop_info = source_data.get(str(max_shop_id))
             title = config.ITEM_MAP.get(item)
-            shopInfo = f'商品:{title};门店:{shop_info["name"]}'
+            shopInfo = f'商品:{title}\n门店:{shop_info["name"]}'
             logging.info(shopInfo)
             reservation_params = process.act_params(max_shop_id, item)
             # 核心预约步骤
@@ -75,7 +75,7 @@ for section in configs.sections():
             # 为了防止漏掉推送异常，所有只要有一个异常，标题就显示失败
             if not r_success:
                 s_title = '！！失败！！茅台预约'
-            s_content += f'预约账号：{r_content.get("appointment")} {shopInfo}\n申购结果：{r_content.get("message")}\n'
+            s_content += f'\n预约账号：{r_content.get("appointment")} \n{shopInfo}\n申购结果：{r_content.get("message")}'
             # 领取小茅运和耐力值
             process.getUserEnergyAward(mobile)
     except BaseException as e:
