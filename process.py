@@ -268,12 +268,11 @@ def send_msg(title, content):
                 if config.QQ_GROUP is not None and len(config.QQ_GROUP) > 0:
                     _group = True
                 stub.SendMsg(qqbot_pb2.SendMsgReq(content=_content, chat=int(config.QQ_RECEIVER), group=_group))
+                logging.info(f"qq消息推送成功\n接受者:[{config.QQ_RECEIVER}] 消息内容：\n{_content}")
         except Exception as e:
             logging.error(f'QQ推送失败：{e}')
     else:
         logging.warning("未设置QQ推送")
-
-    logging.info(f'QQ推送结果：{r.status_code, r.text}')
 
 
 # 核心代码，执行预约
