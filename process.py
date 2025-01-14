@@ -263,7 +263,7 @@ def send_msg(title, content):
         try:
             with grpc.insecure_channel(config.QQ_BOT_SVC) as channel:
                 stub = qqbot_pb2_grpc.QQBotServiceStub(channel)
-                _content = f'【i茅台预约】{title}{content}'
+                _content = f'【i茅台预约】\n\n{title}{content}'
                 _group = False
                 if config.QQ_GROUP is not None and len(config.QQ_GROUP) > 0:
                     _group = True
