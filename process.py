@@ -287,14 +287,17 @@ def reservation(params: dict, mobile: str):
     msg = f'预约:{mobile};Code:{responses.status_code};Body:{responses.text};'
     logging.info(msg)
 
+    resp=json.loads(responses.text)
+
+    return_msg={"appointment":mobile,"message":resp.__getattribute__("message")}
+
     # 如果是成功，推送消息简化；失败消息则全量推送
     if responses.status_code == 200:
         r_success = True
-        msg = f'手机:{mobile};'
     else:
         r_success = False
 
-    return r_success, msg
+    return r_success, return_msg
 
 
 # 用高德api获取地图信息

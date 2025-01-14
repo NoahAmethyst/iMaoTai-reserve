@@ -75,7 +75,7 @@ for section in configs.sections():
             # 为了防止漏掉推送异常，所有只要有一个异常，标题就显示失败
             if not r_success:
                 s_title = '！！失败！！茅台预约'
-            s_content = f'{shopInfo}\n申购结果：{r_content.__getitem__("message")}'
+            s_content = f'预约账号：{r_content.get("appointment")} {shopInfo}\n申购结果：{r_content.get("message")}'
             # 领取小茅运和耐力值
             process.getUserEnergyAward(mobile)
     except BaseException as e:
@@ -85,4 +85,3 @@ for section in configs.sections():
 # 推送消息
 process.send_msg(s_title, s_content)
 # send_message.send_server_chan(config.SCKEY, s_title, s_content)
-
