@@ -6,8 +6,10 @@ name: imaotai-action
 on:
   push:
     branches: [ "master" ]
-    paths:
-      - '.github/workflows/**'
+#    paths:
+#      - '.github/workflows/**'
+    paths-ignore:
+      - 'README.md'
   schedule:
     - cron: '10 0,1 * * *'
 
