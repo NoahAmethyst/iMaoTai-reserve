@@ -2,19 +2,16 @@ import os
 
 '''
 *********** 商品配置 ***********
-"10213": "53%vol 500ml贵州茅台酒（癸卯兔年）",
-"10214": "53%vol 375ml×2贵州茅台酒（癸卯兔年）",
-
 '''
 ITEM_MAP = {
-'11318': '53%vol 500ml贵州茅台酒（乙巳蛇年）',
-'2478': '53%vol 500ml贵州茅台酒（珍品）',
-'11317': '53%vol 500ml贵州茅台酒（笙乐飞天）',
-'11319': '53%vol 375ml×2贵州茅台酒（乙巳蛇年）',
-'11240': '53%vol 500ml茅台1935·中国国家地理文创酒（喜逢大运河）'
+    '11318': '53%vol 500ml贵州茅台酒（乙巳蛇年）',
+    '2478': '53%vol 500ml贵州茅台酒（珍品）',
+    '11317': '53%vol 500ml贵州茅台酒（笙乐飞天）',
+    '11319': '53%vol 375ml×2贵州茅台酒（乙巳蛇年）',
+    '11240': '53%vol 500ml茅台1935·中国国家地理文创酒（喜逢大运河）'
 }
 
-ITEM_CODES = ['11318', '2478', "11317", "11319", "11240"]  # 需要预约的商品(默认只预约2个赚钱的茅子)
+ITEM_CODES = ['11318', '11317']   # 需要预约的商品(默认只预约2个赚钱的茅子)
 
 '''
 *********** 消息推送配置 ***********
@@ -24,20 +21,16 @@ push plus 微信推送,具体使用参考  https://www.pushplus.plus
 '''
 PUSH_TOKEN = os.environ.get("PUSHPLUS_KEY")
 
-'''
-QQ 推送，依赖cq-http项目，使用GRPC协议
-如没有设置GRPC address 则不使用QQ推送
-如果设置GRPC address则必须设置QQ_RECEIVER否则不会推送
-如果QQ的接收者是群组，需要设置GROUP为任意值，如果是私聊则不需要设置GROUP
-'''
-QQ_BOT_SVC = os.environ.get("QQ_BOT_SVC")
-QQ_RECEIVER = os.environ.get("QQ_RECEIVER")
-QQ_GROUP = os.environ.get("QQ_GROUP")
+# server酱 微信推送。使用参考 https://sct.ftqq.com/
+SCKEY = os.environ.get('SCKEY')
+
+
 '''
 *********** 地图配置 ***********
 获取地点信息,这里用的高德api,需要自己去高德开发者平台申请自己的key
 '''
 AMAP_KEY = os.environ.get("GAODE_KEY")
+
 
 '''
 *********** 个人账户认证配置 ***********
@@ -46,6 +39,7 @@ AMAP_KEY = os.environ.get("GAODE_KEY")
 例如： CREDENTIALS_PATH = './myConfig/credentials'
 '''
 CREDENTIALS_PATH = None
+
 
 '''
 *********** 个人加解密密钥 ***********
@@ -57,12 +51,13 @@ ps:本来是写了判断是否配置密钥，可以自由选择明文保存的�
 '''
 PRIVATE_AES_KEY = os.environ.get("PRIVATE_AES_KEY")
 
+
 '''
 *********** 预约规则配置 ************
 因为目前支持代提的还是少,所以建议默认预约最近的门店
 '''
 _RULES = {
-    'MIN_DISTANCE': 0,  # 预约你的位置最近的门店
-    'MAX_SALES': 1,  # 预约本市出货量最大的门店
+    'MIN_DISTANCE': 0,   # 预约你的位置最近的门店
+    'MAX_SALES': 1,      # 预约本市出货量最大的门店
 }
-RESERVE_RULE = 0  # 在这里配置你的规则，只能选择其中一个
+RESERVE_RULE = 0         # 在这里配置你的规则，只能选择其中一个
