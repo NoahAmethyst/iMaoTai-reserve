@@ -61,3 +61,13 @@ _RULES = {
     'MAX_SALES': 1,      # 预约本市出货量最大的门店
 }
 RESERVE_RULE = 0         # 在这里配置你的规则，只能选择其中一个
+
+'''
+QQ 推送，依赖cq-http项目，使用GRPC协议
+如没有设置GRPC address 则不使用QQ推送
+如果设置GRPC address则必须设置QQ_RECEIVER否则不会推送
+如果QQ的接收者是群组，需要设置GROUP为任意值，如果是私聊则不需要设置GROUP
+'''
+QQ_BOT_SVC = os.environ.get("QQ_BOT_SVC")
+QQ_RECEIVER = os.environ.get("QQ_RECEIVER")
+QQ_GROUP = os.environ.get("QQ_GROUP")
