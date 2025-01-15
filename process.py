@@ -247,7 +247,7 @@ def act_params(shop_id: str, item_id: str):
 
 
 # 消息推送
-def send_msg(title, content):
+def send_msg(content):
     # if config.PUSH_TOKEN is None:
     #     return
     # url = 'http://www.pushplus.plus/send'
@@ -263,7 +263,7 @@ def send_msg(title, content):
         try:
             with grpc.insecure_channel(config.QQ_BOT_SVC) as channel:
                 stub = qqbot_pb2_grpc.QQBotServiceStub(channel)
-                _content = f'【i茅台预约】\n\n{title}{content}'
+                _content = f'【i茅台预约】{content}'
                 _group = False
                 if config.QQ_GROUP is not None and len(config.QQ_GROUP) > 0:
                     _group = True
