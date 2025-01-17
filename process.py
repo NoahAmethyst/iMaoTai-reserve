@@ -287,7 +287,7 @@ def reservation(params: dict, mobile: str):
     msg = f'预约:{mobile};code:{responses.status_code};server_code:{resp.get("code")},server_message:{resp.get("message")};'
     logging.info(msg)
     resp_msg = resp.get("message")
-    if resp_msg is None and int(resp.get("code")) == 200:
+    if int(resp.get("code")) == 200:
         resp_msg = '申购成功'
     return_msg = {"appointment": mobile, "message": resp_msg}
 
