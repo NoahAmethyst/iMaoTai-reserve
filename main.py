@@ -73,8 +73,7 @@ for section in configs.sections():
             # 核心预约步骤
             r_success, r_content = process.reservation(reservation_params, mobile)
             # 为了防止漏掉推送异常，所有只要有一个异常，标题就显示失败
-            if not r_success:
-                s_content += f'\n\n预约账号：{r_content.get("appointment")} \n{shopInfo}\n申购结果：{r_content.get("message")}'
+            s_content += f'\n\n预约账号：{r_content.get("appointment")} \n{shopInfo}\n申购结果：{r_content.get("message")}'
             # 领取小茅运和耐力值
             process.getUserEnergyAward(mobile)
     except BaseException as e:
